@@ -16,6 +16,7 @@ class Main:
         game = self.game
         while True:
             game.show_bg(surface)
+            game.show_pieces(surface)
             for event in pygame.event.get():
                 if(event.type==pygame.QUIT):
                     pygame.quit()
