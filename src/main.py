@@ -14,10 +14,11 @@ class Main:
     def mainloop(self):
         surface = self.surface
         game = self.game
-        dragger = self.game.dagger
+        dragger = self.game.dragger
         board = self.game.board
         while True:
             game.show_bg(surface)
+            game.show_moves(surface)
             game.show_pieces(surface)
             if dragger.dragging:
                 dragger.update_blit(surface)
@@ -31,6 +32,11 @@ class Main:
                         piece = board.squares[clicked_row][clicked_col].piece
                         dragger.save_initial(event.pos)
                         dragger.drag_piece(piece)
+                        board.calc_moves(piece, clicked_row, clicked_col)
+                        # show methods
+                        game.show_bg(surface)
+                        game.show_moves(surface)
+                        game.show_pieces(surface)
 
                 #mouse motion
                 if event.type==pygame.MOUSEMOTION:
@@ -39,6 +45,7 @@ class Main:
                         # below two lines are important because for every update of blit we need to show the background also
                         # pieces rendering will happen in inner loop and it appeares to be shuttered
                         game.show_bg(surface)
+                        game.show_moves(surface)
                         game.show_pieces(surface)
                         dragger.update_blit(surface)
 
